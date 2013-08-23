@@ -22,11 +22,11 @@
 
 ;;; Index:
 ;;;	HELLO WORLD!
-;;;	AUTOCAD COMPABILITY
+;;;	COMPABILITY
+;;;		MD_CADSUPPORT - Check if CAD version supports MultiDEV
 ;;;	INITIAL SETTINGS
-;;;		MD_FOLDER - MultiDEV hardcoded folder system
+;;;		MD_FOLDER - MultiDEV hardcoded directory system
 ;;;		MD_SETTINGS - MultiDEV initial settings
-;;;	EXECUTION
 
 
 ;;; ==== HELLO WORLD! ====
@@ -98,7 +98,7 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 ;;	(md_directories)
 
 ;; Notes
-;;	1) Probably an INI file would work better here...
+;;	1) Probably an INI file would work better here.
 
 (defun md_directories (/ multidev_path)
   (if
@@ -135,7 +135,6 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 			   (list gv:addpath	 gv:cfgpath	 gv:datpath	 gv:dospath
 				 gv:docpath	 gv:guipath	 gv:lngpath	 gv:libpath
 				) ;_ list
- ;_ list
 		   ) ;_ mapcar
 	   ) ;_ member
 
@@ -175,7 +174,7 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 (md_directories)						      ; execute
 
 
-;;; MD_SETTINGS - MultiDEV default values settings
+;;; MD_SETTINGS - MultiDEV initial settings
 
 ;; Syntax
 ;;	(md_settings)
@@ -198,8 +197,8 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
   ;; set global variables for MultiDEV settings
   (prompt "\nDefinindo configuração padrão... ")		      ; prompt user
 
-  (setq	gv:md_version	 "0.9.0 ??.Ago.2013 HH:MM"		      ; version number and build time						     
-	gv:md_cfgfile	 "MultiDEV.ini"				      ; config/ini
+  (setq	gv:md_version "0.9.0 25.Ago.2013 HH:MM"			      ; version number and build time
+	gv:md_cfgfile "MultiDEV.ini"				      ; config/ini
   ) ;_ setq
 
   (prompt "OK!")						      ; prompt user
