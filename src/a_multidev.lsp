@@ -181,10 +181,11 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 ;; Parameters
 ;;	none
 ;; Returns
-;;	T if successful
-;;	nil on error.
+;;	the path and file name of loaded ARX if succesful
+;;	kill on error
 ;; Operation
-;;	Define MultiDEV default values settings.
+;;	Define MultiDEV INI hardcoded, the version number and the default values settings.
+;;	It defines the global variable gv:md_cfgfile.
 ;; Example
 ;;	(md_settings)
 
@@ -192,17 +193,29 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 ;;	1) Probably it'll need not to reset values while debugging.
 ;;	2) TIP: use this function to reset the settings.
 
-(defun md_settings ()
-
-  ;; set global variables for MultiDEV settings
+(defun md_settings ()  
   (prompt "\nDefinindo configuração padrão... ")		      ; prompt user
 
-  (setq	gv:md_version "0.9.0 25.Ago.2013 HH:MM"			      ; version number and build time
-	gv:md_cfgfile "MultiDEV.ini"				      ; config/ini
-  ) ;_ setq
+  ;; build the path and find the INI file
+  (if
+    (findfile (setq gv:md_cfgfile (strcat gv:multidevpath "\\" "MultiDEV.ini"))) ; hardcoded config/ini
 
-  (prompt "OK!")						      ; prompt user
-  t								      ; returns T if successful
+     ;; then: set the MultiDEV version number
+     (progn
+       (setq gv:md_version "0.9.0 25.Ago.2013 HH:MM")		      ; version number and build time
+       (prompt "OK!")						      ; prompt user
+       gv:md_cfgfile						      ; returns the INI path and file if successful
+     ) ;_ progn
+
+     ;; else: alert the user and exit
+     (progn
+       (prompt
+	 "Erro: O arquivo de inicialização MultiDEV.ini não foi encontrado! Carregamento cancelado."
+       )							      ; prompt user
+       (setq gv:md_cfgfile nil)					      ; clean the INI path and file
+       (exit)							      ; kill
+     ) ;_ progn
+  ) ;_ if
 ) ;_ defun
 
 (md_settings)							      ; execute
