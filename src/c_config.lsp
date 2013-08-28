@@ -1,4 +1,4 @@
-Ôªø;;;; c_config.lsp
+;;;; c_config.lsp
 ;;;; Config manager
 ;;;; Written by Igor Eliezer Borges, Architect and Urban Planner
 ;;;; http://www.igoreliezer.com
@@ -15,9 +15,97 @@
 ;;; TO-DO:
 ;;;	1) (nothing)
 
+;;; Useful tips:
+;;;	To list all setions of a cfg: (dos_getini nil nil cfgfile)
+;;;	To list all entries of a section: (dos_getini SectionName nil cfgfile)
+;;;	To get a value of entry: (dos_getini SectionName EntryName cfgfile)
+
 ;;; Index:
 ;;;	CFG
 ;;;		MD_CONFIGLOAD - MultiDEV configuration/initialization load (ini file)
+
+
+;;; ==== CFG  ====
+
+;;; MD_SETTINGS - MultiDEV settings
+
+;; Syntax
+;;	(md_settings)
+;; Parameters
+;;	none
+;; Returns
+;;	association list of MultiDEV settings
+;;	nil on error
+;; Operation
+;;	Association list containing the settings for commands, recorded in gv:md_settings.
+;;	Global variable: gv:md_settings.
+;;	To retrieve(cdr (assoc "textheight" gv:md_settings))
+;;		or (dos_getini "commands" "textheight" gv:md_cfgfile)
+;; Example
+;;	(md_settings)
+
+(defun md_settings (/ *key lstEntry)
+
+  ;; entries within a "command" section
+  (if
+    (setq lstEntry (dos_getini "commands" nil gv:md_cfgfile))	      ; list of entries
+
+     ;; entry-value list
+     (setq gv:md_settings
+	    (mapcar '(lambda (*key)				      ; from each line within the section...
+		       (cons *key (dos_getini "commands" *key gv:md_cfgfile))
+								      ; make a pair list with entry and value.
+		     ) ;_ lambda
+		    lstEntry					      ; list of entries
+	    ) ;_ mapcar
+     ) ;_ setq
+     nil ; return nil if failed
+  ) ;_ if
+) ;_ defun
+
+(md_settings) ; exectute
+
+
+
+;; setCfgStrings
+
+(defun md_setCfg (assoclist filepath / DisplayString HardString n StringPair)
+  (setq n 0)
+  (while
+    (setq StringPair (nth n assoclist))	; pick a string pair
+     (progn
+       (setq HardString	   (car StringPair) ; hardcoded string
+	     DisplayString (cdr StringPair) ; display string
+       ) ;_  setq
+       (dos_setini "strings" HardString DisplayString FilePath) ; edit
+       (setq n (1+ n))			; go ahead
+     ) ;_  progn
+  ) ;_  while
+  filepath				; returns
+) ;_  defun
+
+
+
+;; C:CFGEDITOR - Config editor
+
+(defun c:cfgEditor ()
+  
+  ;; entry-value list
+  (setq	lstSettings
+	 (mapcar '(lambda (*key)				      ; from each line within the section...
+		    (cons *key (dos_getini "commands" *key gv:md_cfgfile))
+								      ; make a pair list with entry and value.
+		  ) ;_ lambda
+		 lstEntry					      ; list of entries
+	 ) ;_ mapcar
+  ) ;_ setq
+
+  (dos_proplist
+    "Editor de linguagem do MultiDEV"
+    (strcat "Modificando MultiDEV Config (alargue a janela se necessitar):")
+    StringPairLst
+  ) ;_ dos_proplist
+) ;_ defun
 
 
 ;;; ==== CFG  ====
@@ -39,9 +127,9 @@
 (defun md_configload (/ *key *pathfilename *section entrylist)
 
   ;; Find and load CFG
-  (prompt "\nCarregando configura√ß√£o... ")			      ; prompt user
+  (prompt "\nCarregando configuraÁ„o... ")			      ; prompt user
   (if
-    (findfile (setq *pathfilename (strcat gv:multidevpath "\\" gv:md_cfgfile)))
+    (findfile gv:md_cfgfile)
 								      ; find the INI file hardcoded in a_multidev.lsp
 
      ;; then: get data from the INI file
@@ -78,7 +166,7 @@
      ;; else: prompt user and exit
      (progn
        (prompt
-	 (strcat "\nErro: arquivo de configura√ß√£o " gv:md_cfgfile " n√£o encontrado! Abortando...")
+	 (strcat "\nErro: arquivo de configuraÁ„o " gv:md_cfgfile " n„o encontrado! Abortando...")
        ) ;_  prompt
        (exit)							      ; kill
      ) ;_ progn

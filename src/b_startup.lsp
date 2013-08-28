@@ -5,7 +5,7 @@
 ;;;; Date: 2011.11.20
 ;;;; Licence: Creative Commons BY-NC-SA 3.0 BR
 ;;;; http://www.creativecommons.org.br
-;;;; Require: DOSLib
+;;;; Requires: DOSLib
 
 ;;;; This loads the libraries and configurations.
 ;;;; Once MultiDEV is found and system folders are set, let's load stuff up!
@@ -251,4 +251,3 @@
 (prompt "\nDEBUG: Avançando para o módulo seguinte...")
 
 ;;; EOF
-

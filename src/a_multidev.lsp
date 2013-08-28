@@ -174,27 +174,27 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 (md_directories)						      ; execute
 
 
-;;; MD_SETTINGS - MultiDEV initial settings
+;;; MD_INI - MultiDEV initial settings
 
 ;; Syntax
-;;	(md_settings)
+;;	(md_ini)
 ;; Parameters
 ;;	none
 ;; Returns
-;;	the path and file name of loaded ARX if succesful
+;;	the path and file name of loaded INI if succesful
 ;;	kill on error
 ;; Operation
 ;;	Define MultiDEV INI hardcoded, the version number and the default values settings.
 ;;	It defines the global variable gv:md_cfgfile.
 ;; Example
-;;	(md_settings)
+;;	(md_ini)
 
 ;; Notes
 ;;	1) Probably it'll need not to reset values while debugging.
 ;;	2) TIP: use this function to reset the settings.
 
-(defun md_settings ()  
-  (prompt "\nDefinindo configuração padrão... ")		      ; prompt user
+(defun md_ini ()  
+  (prompt "\nInicialização padrão... ")		      ; prompt user
 
   ;; build the path and find the INI file
   (if
