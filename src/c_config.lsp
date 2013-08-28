@@ -59,37 +59,54 @@
 		    lstEntry					      ; list of entries
 	    ) ;_ mapcar
      ) ;_ setq
-     nil ; return nil if failed
+     nil							      ; return nil if failed
   ) ;_ if
 ) ;_ defun
 
-(md_settings) ; exectute
+(md_settings)							      ; exectute
 
 
 
 ;; setCfgStrings
 
+;;; MD_SETTINGS - MultiDEV settings
+
+;; Syntax
+;;	(md_settings)
+;; Parameters
+;;	none
+;; Returns
+;;	association list of MultiDEV settings
+;;	nil on error
+;; Operation
+;;	Association list containing the settings for commands, recorded in gv:md_settings.
+;;	Global variable: gv:md_settings.
+;;	To retrieve(cdr (assoc "textheight" gv:md_settings))
+;;		or (dos_getini "commands" "textheight" gv:md_cfgfile)
+;; Example
+;;	(md_settings)
+
 (defun md_setCfg (assoclist filepath / DisplayString HardString n StringPair)
   (setq n 0)
   (while
-    (setq StringPair (nth n assoclist))	; pick a string pair
+    (setq StringPair (nth n assoclist))				      ; pick a string pair
      (progn
-       (setq HardString	   (car StringPair) ; hardcoded string
-	     DisplayString (cdr StringPair) ; display string
+       (setq HardString	   (car StringPair)			      ; hardcoded string
+	     DisplayString (cdr StringPair)			      ; display string
        ) ;_  setq
-       (dos_setini "strings" HardString DisplayString FilePath) ; edit
-       (setq n (1+ n))			; go ahead
+       (dos_setini "strings" HardString DisplayString FilePath)	      ; edit
+       (setq n (1+ n))						      ; go ahead
      ) ;_  progn
   ) ;_  while
-  filepath				; returns
+  filepath							      ; returns
 ) ;_  defun
 
 
 
 ;; C:CFGEDITOR - Config editor
 
-(defun c:cfgEditor ()
-  
+(defun c:cfgEditor (/ lstSettings *key)
+
   ;; entry-value list
   (setq	lstSettings
 	 (mapcar '(lambda (*key)				      ; from each line within the section...
@@ -100,11 +117,13 @@
 	 ) ;_ mapcar
   ) ;_ setq
 
-  (dos_proplist
-    "Editor de linguagem do MultiDEV"
-    (strcat "Modificando MultiDEV Config (alargue a janela se necessitar):")
-    StringPairLst
-  ) ;_ dos_proplist
+  (setq	lstSettings_new
+	 (dos_proplist
+	   "Editor de linguagem do MultiDEV"
+	   (strcat "Modificando MultiDEV Config (alargue a janela se necessitar):")
+	   lstSettings
+	 ) ;_ dos_proplist
+  ) ;_ setq
 ) ;_ defun
 
 
