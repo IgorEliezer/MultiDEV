@@ -39,6 +39,7 @@
 ;; Operation
 ;;	Association list containing the settings for commands, recorded in gv:md_settings.
 ;;	Global variable: gv:md_settings.
+;; Notes
 ;;	To retrieve(cdr (assoc "textheight" gv:md_settings))
 ;;		or (dos_getini "commands" "textheight" gv:md_cfgfile)
 ;; Example
@@ -66,13 +67,10 @@
 (md_settings)							      ; exectute
 
 
-
-;; setCfgStrings
-
-;;; MD_SETTINGS - MultiDEV settings
+;;; MD_SETCFG - Edit MultiDEV settings
 
 ;; Syntax
-;;	(md_settings)
+;;	(md_setCfg assoclist)
 ;; Parameters
 ;;	none
 ;; Returns
@@ -84,28 +82,32 @@
 ;;	To retrieve(cdr (assoc "textheight" gv:md_settings))
 ;;		or (dos_getini "commands" "textheight" gv:md_cfgfile)
 ;; Example
-;;	(md_settings)
+;;	(md_setCfg assoclist)
 
-(defun md_setCfg (assoclist filepath / DisplayString HardString n StringPair)
+(defun md_setCfg (assoclist / DisplayString HardString n StringPair)
+
+  ;; update the config
   (setq n 0)
   (while
     (setq StringPair (nth n assoclist))				      ; pick a string pair
      (progn
        (setq HardString	   (car StringPair)			      ; hardcoded string
 	     DisplayString (cdr StringPair)			      ; display string
-       ) ;_  setq
-       (dos_setini "strings" HardString DisplayString FilePath)	      ; edit
+       ) ;_ setq
+       (dos_setini "strings" HardString DisplayString gv:md_cfgfile)  ; edit
        (setq n (1+ n))						      ; go ahead
-     ) ;_  progn
+     ) ;_ progn
   ) ;_  while
-  filepath							      ; returns
+  assoclist							      ; returns
 ) ;_  defun
-
 
 
 ;; C:CFGEDITOR - Config editor
 
 (defun c:cfgEditor (/ lstSettings *key)
+
+  ;; Build an assoc list of the settings
+  (setq lstEntry (dos_getini "commands" nil gv:md_cfgfile))	      ; list all entries within section
 
   ;; entry-value list
   (setq	lstSettings
@@ -117,14 +119,28 @@
 	 ) ;_ mapcar
   ) ;_ setq
 
-  (setq	lstSettings_new
-	 (dos_proplist
-	   "Editor de linguagem do MultiDEV"
-	   (strcat "Modificando MultiDEV Config (alargue a janela se necessitar):")
-	   lstSettings
-	 ) ;_ dos_proplist
-  ) ;_ setq
+  ;; Edition
+  (if
+    (setq lstSettings_new					      ; user clicked on OK
+	   (dos_proplist
+	     "Editor de configuração do MultiDEV"
+	     (strcat "Modificando MultiDEV Config (alargue a janela se necessitar):")
+	     lstSettings
+	   ) ;_ dos_proplist
+    ) ;_ setq
+
+     ;; then: edit and prompt user
+     (progn
+       (setLangStrings StringPairLst_new LangFile)		      ; edit the language file
+       (prompt (strcat "O arquivo de linguagem " LangDisplay " foi alterado com sucesso."))
+     ) ;_  progn
+
+     ;; else: nothing is changed, just prompt user
+     (prompt (strcat "O arquivo de linguagem " LangDisplay " não foi alterado."))
+  ) ;_ if
 ) ;_ defun
+
+
 
 
 ;;; ==== CFG  ====

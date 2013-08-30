@@ -218,7 +218,7 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
   ) ;_ if
 ) ;_ defun
 
-(md_settings)							      ; execute
+(md_ini)							      ; execute
 
 
 ;; it's all set! Now go ahead to start MultiDEV up and running...
