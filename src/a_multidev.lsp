@@ -7,10 +7,10 @@
 ;;;; License: OpenSource - The MIT License (MIT)
 
 
-;;;; First find MultiDEV and set the hardcoded directories. Then, the initial settings.
+;;;; First find MultiDEV and set the path.
 
 
-;;;; /!\ MULTIDEV REQUIRES BricsCAD or AutoCAD 2007 OR HIGHER /!\
+;;;; /!\ MULTIDEV REQUIRES AutoCAD 2007 OR HIGHER /!\
 ;;;; Custom functions and global variables are prefixed with "md:"
 
 

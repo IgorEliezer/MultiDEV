@@ -11,15 +11,6 @@
 ;;;; Once MultiDEV is found and system folders are set, let's load stuff up!
 ;;;; This exhibits MultiDEV splashscreen.
 
-;;; Notes:
-;;;	1. (nothing)
-
-;;; TO-DO:
-;;;	1) Create (findfile_key [cfg] <key> <filename> <ext>)
-;;;	2) Create an INI editor (another LSP file)
-;;;	3) Integration with OpenDCL (future)
-;;;	4) ESSENTIAL: Check AutoCAD Version!!!
-
 
 ;;; ==== LIBS  ====
 
