@@ -20,29 +20,11 @@
 ;;;	3) Integration with OpenDCL (future)
 ;;;	4) ESSENTIAL: Check AutoCAD Version!!!
 
-;;; Index:
-;;;	LIBS
-;;;		MD_LOADDOSLIB - DOSLib loader according to AutoCAD version and system's processor architecture
-;;;	INTERFACE
-;;;		MD_MENULOAD - MultiDEV menuload
-;;;		MD_SPLASHSCREEN - MultiDEV splashscreen
-
 
 ;;; ==== LIBS  ====
 
 ;;; MD_LOADDOSLIB - DOSLib loader
 
-;; Syntax
-;;	(md_loaddoslib)
-;; Parameters
-;;	none
-;; Returns
-;;	the path and file name of loaded ARX if succesful
-;;	kill on error
-;; Operation
-;;	DOSLib loader according to AutoCAD version and system's processor architecture.
-;; Example
-;;	(md_loaddoslib)
 
 (defun md_loaddoslib (/ acadvernum filename pathfilename)
 
@@ -109,19 +91,7 @@
 
 ;; --- A bit about AutoCAD version number stored in ACADVER system variable
 ;; Version number differs from release number. There is a release number per year, while version number is bound to file
-;;	format and it's returned by ACADVER system variable which is used by MultiDEV to load external libraries.
-
-;; Official name	Version	Release
-;; AutoCAD 2004 	16.0 	18
-;; AutoCAD 2005 	16.1 	19
-;; AutoCAD 2006 	16.2 	20
-;; AutoCAD 2007 	17.0 	21
-;; AutoCAD 2008 	17.1 	22
-;; AutoCAD 2009 	17.2 	23
-;; AutoCAD 2010 	18.0 	24
-;; AutoCAD 2011 	18.1 	25
-;; AutoCAD 2012 	18.2 	26
-;; AutoCAD 2013 	19.0 	27
+;;	format and it's returned by ACADVER system variable which is used by MultiDEV to load external librarie
 
 (defun md_menuload (/ AcadVerNum CmdEcho_or FileExt FileName GroupName PathFileName)
 
@@ -198,53 +168,6 @@
 
 (md_menuload)							      ; execute
 
-
-;;; MD_SPLASHSCREEN - MultiDEV splashscreen
-
-;; Syntax
-;;	(md_splashscreen)
-;; Parameters
-;;	none
-;; Returns
-;;	the path and file name of displayed splashscreen file.
-;;	nil on error
-;; Operation
-;;	If the program has survived until now, show splashscreen
-;;	
-;; Example
-;;	(md_splashscreen)
-
-(defun md_splashscreen (/ filename pathfilename)
-
-  ;; Check INI
-  (if
-    (= (dos_getini "startup" "showsplashscreen" gv:md_cfgfile) "yes") ; splashscreen is enabled by INI, section "startup"
-
-     ;; Find and show splashscreen
-     (progn
-       (setq filename "splash.png")				      ; png file (must be hardcoded)
-       (if
-	 (findfile (setq pathfilename (strcat gv:guipath "\\" filename))) ; find the png file
-
-	  ;; then: if found, show splashscreen
-	  (progn
-	    (dos_splash pathfilename 5 t)			      ; show for 3 seconds and allow user to dismiss it
-	    pathfilename					      ; returns the path if successful
-	  ) ;_ progn
-
-	  ;; else: if not found, prompt user, but do not exit.
-	  (progn
-	    (prompt
-	      (strcat "\nErro: arquivo de splashscreen " filename " não encontrado! Prosseguindo...")
-	    ) ;_  prompt
-	    nil							      ; returns nil if failed
-	  ) ;_ progn
-       ) ;_ if
-     ) ;_ if
-  ) ;_ if
-) ;_ defun
-
-(md_splashscreen)   ; execution
 
 
 ;; MultiDEV is ready to load!...
