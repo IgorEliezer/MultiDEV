@@ -13,7 +13,7 @@
 ;;; ---- FUNCIONS ----
 
 ;;; FUNCTION: Command ini
-;;;	Saves some values for later and turns off echoing.
+;;; 	Saves some values for later and turns off echoing.
 
 (defun md:startcmd ()
 
@@ -34,7 +34,7 @@
 
 
 ;;; FUNCTION: Command end
-;;;	If the command finishes or on error.
+;;; 	If command finishes or on error.
 
 (defun md:endcmd ()
   (command "_undo" "_end")		; undo group created
