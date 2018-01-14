@@ -22,7 +22,7 @@
 ;;; FUNCTION: Set MultiDEV version
 
 (defun md:version ()
-  (setq *md:ver* "X.X.X ____, YYYY-MM-DD") ; version number, stage and date
+  (setq *md:ver* "0.X.X ____, YYYY-MM-DD") ; version number, stage and date
 )
 
 (md:version)				; execute
@@ -67,6 +67,7 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 ;;; FUNCTION: Working MultiDEV path
 ;;;	Find MultiDEV.vlx in the search path and, if successful, record it in a global variable.
 ;;;	Otherwise, warn the user to add MultiDEV in the search path.
+;;;	Test: (findfile "MultiDEV.vlx")
 
 (defun md:path (/ file filepath)
   (setq file "MultiDEV.vlx")
@@ -79,7 +80,7 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
      ;; else: alert the user and exit
      (progn
        (alert
-	 "O MultiDEV não foi adicionado na busca de arquivos de suporte do AutoCAD!\n\nSiga os seguintes passos:
+	 "O MultiDEV não foi adicionado na busca de arquivos de suporte do AutoCAD!\n\nSiga os passos:
 - dê o comando _OPTIONS;
 - selecione aba/seção 'Files';
 - selecione 'Support File Search Path';
@@ -103,7 +104,8 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 
 
 ;; it's all set! Now go ahead to start MultiDEV up...
-(prompt "\nDEBUG: Avançando para o módulo seguinte...")
+;;;(prompt "\nDEBUG: Avançando para o módulo seguinte...")
+
 
 ;;; EOF
 
