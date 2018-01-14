@@ -2,7 +2,7 @@
 ;;;; Load libraries and configurations. Splashscreen.
 ;;;; Written by Igor Eliezer Borges, Architect and Urban Planner
 ;;;; http://www.igoreliezer.com
-;;;; Creation date: 2011.11.20
+;;;; Creation date: 2011-11-20
 ;;;; Edition date: (pending)
 ;;;; License: OpenSource - The MIT License (MIT)
 

@@ -2,7 +2,7 @@
 ;;;; Geometric functions
 ;;;; Written by Igor Eliezer Borges, Architect and Urban Planner
 ;;;; http://www.igoreliezer.com
-;;;; Creation date: 2011.11.20 (rev 07/Nov/2009 and 05/May/2011)
+;;;; Creation date: 2011-11-20 (rev 2009-11-07 and 2011-05-05)
 ;;;; Edition date: 2018-01-12
 ;;;; License: OpenSource - The MIT License (MIT)
 

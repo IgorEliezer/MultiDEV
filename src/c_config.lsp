@@ -2,7 +2,7 @@
 ;;;; Config manager
 ;;;; Written by Igor Eliezer Borges, Architect and Urban Planner
 ;;;; http://www.igoreliezer.com
-;;;; Creation date: 2013.08.27
+;;;; Creation date: 2013-08-27
 ;;;; Edition date: (pending)
 ;;;; License: OpenSource - The MIT License (MIT)
 
