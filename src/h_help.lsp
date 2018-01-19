@@ -47,9 +47,9 @@
 
 ;;; FINAL MESSAGES
 
-(prompt	(strcat	"\nMultiDEV v"
+(prompt	(strcat	"\nMultiDEV carregado. Versão "
 		*md:ver*
-		" carregado, (c) Igor Eliezer Borges, licença OpenSource/MIT."
+		". (c) Igor Eliezer Borges, licença OpenSource/MIT."
 	)
 )
 (prompt "\nDigite AJ para abrir a lista de comandos.") ; tip

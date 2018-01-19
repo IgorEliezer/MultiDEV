@@ -22,7 +22,7 @@
 ;;; FUNCTION: Set MultiDEV version
 
 (defun md:version ()
-  (setq *md:ver* "0.X.X ____, YYYY-MM-DD") ; version number, stage and date
+  (setq *md:ver* "0.0.1 alfa, 2018-01-19") ; version number, stage and date
 )
 
 (md:version)				; execute
@@ -69,38 +69,38 @@ O MultiDEV requer AutoCAD 2007 ou superior para funcionar."
 ;;;	Otherwise, warn the user to add MultiDEV in the search path.
 ;;;	Test: (findfile "MultiDEV.vlx")
 
-(defun md:path (/ file filepath)
-  (setq file "MultiDEV.vlx")
-  (if
-    (setq filepath (findfile file))
-
-     ;; then: record MultiDEV path and return it
-     (setq *md:path* (substr filepath 1 (- (strlen filepath) 13)))
-
-     ;; else: alert the user and exit
-     (progn
-       (alert
-	 "O MultiDEV não foi adicionado na busca de arquivos de suporte do AutoCAD!\n\nSiga os passos:
-- dê o comando _OPTIONS;
-- selecione aba/seção 'Files';
-- selecione 'Support File Search Path';
-- clique no botão 'Add..' e em 'Browse...', localize a pasta do MultiDEV, selecione-a e clique em 'OK';
-- aplique as alterações clicando em 'Apply';
-- recarregue o MultiDEV."
-       )
-       (prompt
-	 (strcat "\nErro: A pasta do "
-		 file
-		 " não foi encontrada. Carregamento cancelado!"
-	 )
-       )
-       (setq *md:path* nil)
-       (exit)
-     )
-  )
-)
-
-(md:path)				; execute
+;;;(defun md:path (/ file filepath)
+;;;  (setq file "MultiDEV.vlx")
+;;;  (if
+;;;    (setq filepath (findfile file))
+;;;
+;;;     ;; then: record MultiDEV path and return it
+;;;     (setq *md:path* (substr filepath 1 (- (strlen filepath) 13)))
+;;;
+;;;     ;; else: alert the user and exit
+;;;     (progn
+;;;       (alert
+;;;	 "O MultiDEV não foi adicionado na busca de arquivos de suporte do AutoCAD!\n\nSiga os passos:
+;;;- dê o comando _OPTIONS;
+;;;- selecione aba/seção 'Files';
+;;;- selecione 'Support File Search Path';
+;;;- clique no botão 'Add...' e em 'Browse...', localize a pasta do MultiDEV, selecione-a e clique em 'OK';
+;;;- aplique as alterações clicando em 'Apply';
+;;;- recarregue o MultiDEV."
+;;;       )
+;;;       (prompt
+;;;	 (strcat "\nErro: A pasta do "
+;;;		 file
+;;;		 " não foi encontrada. Carregamento cancelado!"
+;;;	 )
+;;;       )
+;;;       (setq *md:path* nil)
+;;;       (exit)
+;;;     )
+;;;  )
+;;;)
+;;;
+;;;(md:path)				; execute
 
 
 ;; it's all set! Now go ahead to start MultiDEV up...
